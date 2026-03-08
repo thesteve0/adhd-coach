@@ -113,13 +113,9 @@ TOOLS_SMOLLM3 = [
 
 MODELS = [
     "HuggingFaceTB/SmolLM3-3B",
+    "Qwen/Qwen3-8B",
     "allenai/Olmo-3-7B-Instruct",
 ]
-# MODELS = [
-#     "HuggingFaceTB/SmolLM3-3B",
-#     "Qwen/Qwen3-8B",
-#     "allenai/Olmo-3-7B-Instruct",
-# ]
 
 SYSTEM_PROMPT = """\
 You are a helpful personal assistant with access to tools: \
@@ -500,7 +496,8 @@ def write_csv(results: list[EpisodeResult], output_path: str = "benchmark_detail
 def main():
     parser = argparse.ArgumentParser(description="Benchmark LLMs against ADHD coaching rubric")
     parser.add_argument("--episodes", type=int, default=4, help="Number of episodes per model (default: 4)")
-    parser.add_argument("--env-url", type=str, default="http://localhost:8000", help="URL of adhd_env server")
+    # parser.add_argument("--env-url", type=str, default="http://localhost:8000", help="URL of adhd_env server")
+    parser.add_argument("--env-url", type=str, default="https://thesteve0-adhd-env.hf.space", help="URL of adhd_env server")
     args = parser.parse_args()
 
     print(f"Running benchmark: {len(MODELS)} models x {args.episodes} episodes")
