@@ -1,0 +1,76 @@
+[project]
+name = "adhd-coach-env"
+version = "0.1.0"
+description = "OpenEnv environment for ADHD task initiation coaching evaluation"
+requires-python = ">=3.12"
+dependencies = [
+    "tomli>=2.0.0",
+    "tomli-w>=1.0.0",
+    "ruff>=0.4.0",
+    "openenv-core[cli]>=0.2.1",
+    "verifiers>=0.1.10",
+    "fastapi>=0.135.1",
+    "uvicorn[standard]>=0.41.0",
+    "pydantic>=2.12.5",
+]
+
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+]
+
+[tool.uv]
+exclude-dependencies = [
+    "apex",
+    "cfgv",
+    "contourpy",
+    "cxxfilt",
+    "cycler",
+    "distlib",
+    "filelock",
+    "fonttools",
+    "fsspec",
+    "hypothesis",
+    "identify",
+    "iniconfig",
+    "jinja2",
+    "kiwisolver",
+    "markupsafe",
+    "matplotlib",
+    "mpmath",
+    "networkx",
+    "ninja",
+    "nodeenv",
+    "numpy",
+    "packaging",
+    "pandas",
+    "pillow",
+    "pip",
+    "platformdirs",
+    "pluggy",
+    "pre-commit",
+    "pygments",
+    "pyparsing",
+    "pytest",
+    "python-dateutil",
+    "python-discovery",
+    "pyyaml",
+    "ruff",
+    "scipy",
+    "setuptools",
+    "six",
+    "sortedcontainers",
+    "sympy",
+    "torch",
+    "torchaudio",
+    "torchvision",
+    "tqdm",
+    "triton",
+    "typing-extensions",
+    "uv",
+    "virtualenv",
+]
