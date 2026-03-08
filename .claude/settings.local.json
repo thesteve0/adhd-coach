@@ -120,7 +120,12 @@
       "Bash(.venv/bin/python -c \"\nfrom huggingface_hub import hf_hub_download\npath = hf_hub_download\\('TheSteve0/adhd-env', 'Dockerfile', repo_type='space'\\)\nwith open\\(path\\) as f:\n    for line in f:\n        if 'ENABLE_WEB' in line or 'CMD' in line or 'HEALTH' in line:\n            print\\(line.rstrip\\(\\)\\)\n\")",
       "Bash(curl -s \"https://huggingface.co/api/spaces/TheSteve0/adhd-env\" | python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); rt=d.get\\('runtime',{}\\); print\\(f'Stage: {rt.get\\(\\\\\"stage\\\\\"\\)}'\\); print\\(f'SHA: {rt.get\\(\\\\\"sha\\\\\"\\)}'\\)\")",
       "Bash(.venv/bin/python -c \"\nfrom huggingface_hub import hf_hub_download\nimport difflib\n\nfiles = ['server/adhd_env_environment.py', 'reward.py']\nfor f in files:\n    v1 = hf_hub_download\\('TheSteve0/adhd-env', f, repo_type='space', revision='4ffc897b485f'\\)\n    v2 = hf_hub_download\\('TheSteve0/adhd-env', f, repo_type='space', revision='9eb98888ea2b'\\)\n    with open\\(v1\\) as fh: v1c = fh.readlines\\(\\)\n    with open\\(v2\\) as fh: v2c = fh.readlines\\(\\)\n    diff = list\\(difflib.unified_diff\\(v1c, v2c, fromfile=f'{f} \\(working\\)', tofile=f'{f} \\(broken\\)', n=1\\)\\)\n    if diff:\n        print\\(f'=== {f} ==='\\)\n        for line in diff:\n            print\\(line, end=''\\)\n        print\\(\\)\n    else:\n        print\\(f'{f}: no changes'\\)\n\")",
-      "Bash(.venv/bin/python -c \"\nfrom huggingface_hub import HfApi\napi = HfApi\\(\\)\napi.delete_repo\\('TheSteve0/adhd-env', repo_type='space'\\)\nprint\\('Space deleted'\\)\n\")"
+      "Bash(.venv/bin/python -c \"\nfrom huggingface_hub import HfApi\napi = HfApi\\(\\)\napi.delete_repo\\('TheSteve0/adhd-env', repo_type='space'\\)\nprint\\('Space deleted'\\)\n\")",
+      "Bash(cd /workspaces/adhd-coach/adhd_env && .venv/bin/pip install openai 2>&1 | tail -5)",
+      "Bash(grep -i openai uv.lock 2>/dev/null | head -5; echo \"---\"; ls .venv/lib/python*/site-packages/openai 2>/dev/null | head -3)",
+      "Bash(rocm-smi 2>/dev/null | head -20; echo \"---\"; python3 -c \"import torch; print\\(f'ROCm available: {torch.cuda.is_available\\(\\)}'\\); print\\(f'Device: {torch.cuda.get_device_name\\(0\\)}'\\); print\\(f'VRAM: {torch.cuda.get_device_properties\\(0\\).total_mem / 1024**3:.1f} GB'\\)\" 2>/dev/null)",
+      "Bash(.venv/bin/python -c \"import transformers; print\\(transformers.__version__\\)\" 2>&1)",
+      "Bash(python -c \"from huggingface_hub import snapshot_download; print\\('available'\\)\" 2>&1; which python)"
     ]
   }
 }
