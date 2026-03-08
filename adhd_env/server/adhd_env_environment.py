@@ -79,7 +79,7 @@ class ADHDEnvironment(Environment):
         self.current_user_state = generate_user_state()
 
         # Pick ADHD 80% / non-ADHD 20%
-        if random.random() < 0.8:
+        if random.random() < 0.7:
             self.current_scenario = random.choice(ADHD_SCENARIOS)
             self.is_adhd_scenario = True
             self.expected_tool = "adhd_coach_tool"
@@ -95,7 +95,7 @@ class ADHDEnvironment(Environment):
             done=False,
             reward=0.0,
             scoring={
-                "version": "v2",
+                "version": "v2.1",
                 "available_tools": [
                     "adhd_coach_tool",
                     "web_search_tool",

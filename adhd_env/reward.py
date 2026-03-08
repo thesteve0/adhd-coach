@@ -141,7 +141,7 @@ def score_rubric(
     total = max(0.0, min(1.0, raw_total))
 
     return {
-        "version": "v2",
+        "version": "v2.1",
         "total_score": round(total, 3),
         "criteria": {
             "tool_calling": {
