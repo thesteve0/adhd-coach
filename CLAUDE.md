@@ -15,6 +15,41 @@ An **OpenEnv environment that evaluates ADHD coaching quality** by:
 **Focus**: Perfect the environment first, model training is optional
 **Approach**: Start simple (1 criterion), iterate based on manual testing
 
+## Deploying to HuggingFace Spaces
+
+**NEVER use the web interface.** It silently hangs the container on startup. Always use `--no-interface`.
+
+### Deploy command
+```bash
+cd /workspaces/adhd-coach/adhd_env && .venv/bin/openenv push --repo-id TheSteve0/adhd-env --no-interface
+```
+
+### Full deploy workflow
+```bash
+# 1. Run tests locally
+cd /workspaces/adhd-coach/adhd_env && .venv/bin/python test_environment.py
+
+# 2. Validate OpenEnv structure
+.venv/bin/openenv validate --verbose
+
+# 3. Push WITHOUT web interface (--no-interface is MANDATORY)
+.venv/bin/openenv push --repo-id TheSteve0/adhd-env --no-interface
+
+# 4. Wait ~2 min for build, then verify
+curl -s -X POST https://thesteve0-adhd-env.hf.space/reset | python3 -m json.tool
+```
+
+### Why `--no-interface` is mandatory
+- `openenv push` defaults to `--interface`, which injects `ENABLE_WEB_INTERFACE=true` into the Dockerfile and `base_path: /web` into README.md
+- The web interface hangs silently on startup — no error output, just blank container logs
+- HF Spaces keeps serving the old container while the new one is stuck at `RUNNING_APP_STARTING`
+- This wastes significant debugging time because the failure is completely silent
+
+### If the Space gets stuck
+1. Check container logs in HF UI (https://huggingface.co/spaces/TheSteve0/adhd-env → Logs)
+2. If stuck at `RUNNING_APP_STARTING` with no output, the web interface was likely injected
+3. Delete the Space in HF UI, then re-push with `--no-interface`
+
 ## Project Overview
 
 **Purpose**: Create an innovative OpenEnv environment that evaluates and scores ADHD task initiation coaching responses, enabling reinforcement learning for better AI executive function support.
